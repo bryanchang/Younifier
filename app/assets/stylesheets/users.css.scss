@@ -1,0 +1,19 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+body { font-size: 12px; line-height: 1.5em; font-family: Helvetica, Arial, sans-serif; background-color: #ffffff; color: #999}
+
+h1 { font-size: 18px; margin-bottom: 40px; }
+h2 { font-size: 16px; margin-bottom: 30px; }
+h3 { font-size: 14px; margin-bottom: 20px; }
+h4, h5, h6 { font-size: 14px; margin-bottom: 10px; }
+
+ul { list-style: square; margin: 0 0 0 40px; padding: 0; }
+
+#services_list { margin: 20px 0; padding: 0; list-style: none; }
+
+a { color: #74809a; text-decoration: none !important;}
+a:visited { color: #74809a; }
+a:hover { color: #c81419; }
