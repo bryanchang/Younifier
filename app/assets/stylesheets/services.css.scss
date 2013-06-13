@@ -25,6 +25,7 @@ a:hover { color: #c81419; }
   box-shadow:         3px 3px 5px 6px #ccc;
 }
 
-.round {
-
-}
+#flash { margin-bottom: 60px; }
+.flash { padding: 5px; background-color: #dddddd; }
+.error { color: #ffffff; background-color: #c81419; }
+.notice { background-color: #ffff00; }

@@ -8,6 +8,8 @@
       Name: <%= @authhash[:name] %><br />
       Email: <%= @authhash[:email] %> <br />
       Location: <%= @authhash[:location] %> <br />
+      Token: <%= @authhash[:token] %> <br />
+      Secret: <%= @authhash[:secret] %> <br />
     </p>
 
     <%= form_tag :controller => "services", :action => "newaccount" do %>

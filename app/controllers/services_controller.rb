@@ -31,7 +31,7 @@ class ServicesController < ApplicationController
       @newuser = User.new
       @newuser.name = session[:authhash][:name]
       @newuser.email = session[:authhash][:email]
-      @newuser.services.build(:provider => session[:authhash][:provider], :uid => session[:authhash][:uid], :uname => session[:authhash][:name], :uemail => session[:authhash][:email], :ulocation => session[:authhash][:location])
+      @newuser.services.build(:oauth_token => session[:authhash][:token], :oauth_secret => session[:authhash][:secret], :provider => session[:authhash][:provider], :uid => session[:authhash][:uid], :uname => session[:authhash][:name], :uemail => session[:authhash][:email], :ulocation => session[:authhash][:location])
 
       if @newuser.save!
         # signin existing user
@@ -79,32 +79,32 @@ class ServicesController < ApplicationController
       @authhash = Hash.new
 
       if service_route == 'facebook'
-        # omniauth['credentials']['token'] ? @authhash[:token] =  omniauth['credentials']['token'] : @authhash[:token] = ''
-        # omniauth['credentials']['secret'] ? @authhash[:secret] =  omniauth['credentials']['secret'] : @authhash[:secret] = ''
+        omniauth['credentials']['token'] ? @authhash[:token] =  omniauth['credentials']['token'] : @authhash[:token] = ''
+        omniauth['credentials']['secret'] ? @authhash[:secret] =  omniauth['credentials']['secret'] : @authhash[:secret] = ''
         omniauth['extra']['raw_info']['email'] ? @authhash[:email] =  omniauth['extra']['raw_info']['email'] : @authhash[:email] = ''
         omniauth['extra']['raw_info']['name'] ? @authhash[:name] =  omniauth['extra']['raw_info']['name'] : @authhash[:name] = ''
         omniauth['extra']['raw_info']['id'] ?  @authhash[:uid] =  omniauth['extra']['raw_info']['id'].to_s : @authhash[:uid] = ''
         omniauth['info']['location'] ? @authhash[:location] =  omniauth['info']['location'] : @authhash[:location] = ''
         omniauth['provider'] ? @authhash[:provider] = omniauth['provider'] : @authhash[:provider] = ''
       elsif service_route == 'github'
-        # omniauth['credentials']['token'] ? @authhash[:token] =  omniauth['credentials']['token'] : @authhash[:token] = ''
-        # omniauth['credentials']['secret'] ? @authhash[:secret] =  omniauth['credentials']['secret'] : @authhash[:secret] = ''
+        omniauth['credentials']['token'] ? @authhash[:token] =  omniauth['credentials']['token'] : @authhash[:token] = ''
+        omniauth['credentials']['secret'] ? @authhash[:secret] =  omniauth['credentials']['secret'] : @authhash[:secret] = ''
         omniauth['info']['email'] ? @authhash[:email] =  omniauth['info']['email'] : @authhash[:email] = ''
         omniauth['info']['name'] ? @authhash[:name] =  omniauth['info']['name'] : @authhash[:name] = ''
         omniauth['extra']['raw_info']['id'] ? @authhash[:uid] =  omniauth['extra']['raw_info']['id'].to_s : @authhash[:uid] = ''
         omniauth['provider'] ? @authhash[:provider] =  omniauth['provider'] : @authhash[:provider] = ''
         omniauth['extra']['raw_info']['location'] ? @authhash[:location] =  omniauth['extra']['raw_info']['location'].to_s : @authhash[:location] = ''
       elsif service_route == 'linkedin'
-        # omniauth['credentials']['token'] ? @authhash[:token] =  omniauth['credentials']['token'] : @authhash[:token] = ''
-        # omniauth['credentials']['secret'] ? @authhash[:secret] =  omniauth['credentials']['secret'] : @authhash[:secret] = ''
+        omniauth['credentials']['token'] ? @authhash[:token] =  omniauth['credentials']['token'] : @authhash[:token] = ''
+        omniauth['credentials']['secret'] ? @authhash[:secret] =  omniauth['credentials']['secret'] : @authhash[:secret] = ''
         omniauth['info']['email'] ? @authhash[:email] =  omniauth['info']['email'] : @authhash[:email] = ''
         omniauth['info']['name'] ? @authhash[:name] =  omniauth['info']['name'] : @authhash[:name] = ''
         omniauth['extra']['raw_info']['id'] ? @authhash[:uid] =  omniauth['extra']['raw_info']['id'].to_s : @authhash[:uid] = ''
         omniauth['provider'] ? @authhash[:provider] =  omniauth['provider'] : @authhash[:provider] = ''
         omniauth['info']['location'] ? @authhash[:location] =  omniauth['info']['location'] : @authhash[:location] = ''
       elsif ['google', 'google_apps', 'yahoo', 'twitter', 'myopenid', 'open_id'].index(service_route) != nil
-        # omniauth['credentials']['token'] ? @authhash[:token] =  omniauth['credentials']['token'] : @authhash[:token] = ''
-        # omniauth['credentials']['secret'] ? @authhash[:secret] =  omniauth['credentials']['secret'] : @authhash[:secret] = ''
+        omniauth['credentials']['token'] ? @authhash[:token] =  omniauth['credentials']['token'] : @authhash[:token] = ''
+        omniauth['credentials']['secret'] ? @authhash[:secret] =  omniauth['credentials']['secret'] : @authhash[:secret] = ''
         omniauth['info']['email'] ? @authhash[:email] =  omniauth['info']['email'] : @authhash[:email] = ''
         omniauth['info']['name'] ? @authhash[:name] =  omniauth['info']['name'] : @authhash[:name] = ''
         omniauth['uid'] ? @authhash[:uid] = omniauth['uid'].to_s : @authhash[:uid] = ''
@@ -126,7 +126,7 @@ class ServicesController < ApplicationController
             flash[:notice] = 'Your account at ' + @authhash[:provider].capitalize + ' is already connected with this site.'
             redirect_to services_path
           else
-            current_user.services.create!(:provider => @authhash[:provider], :uid => @authhash[:uid], :uname => @authhash[:name], :uemail => @authhash[:email], :ulocation => @authhash[:location]) #,
+            current_user.services.create!(:oauth_token => @authhash[:token], :oauth_secret => @authhash[:secret], :provider => @authhash[:provider], :uid => @authhash[:uid], :uname => @authhash[:name], :uemail => @authhash[:email], :ulocation => @authhash[:location]) #,
             flash[:notice] = 'Your ' + @authhash[:provider].capitalize + ' account has been added for signing in at this site.'
             redirect_to services_path
           end
@@ -159,5 +159,11 @@ class ServicesController < ApplicationController
   def failure
     flash[:error] = 'There was an error at the remote authentication service. You have not been signed in.'
     redirect_to root_url
+  end
+
+  def update_location # input=('SF, baby')
+    Twitter.update_profile(:location => 'SF, baby')
+    # flash[:notice] = 'Your location has been successfully updated on ' + @authhash[:provider].capitalize + '.'
+    redirect_to services_path
   end
 end
