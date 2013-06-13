@@ -2,16 +2,16 @@
   <h1>New account</h1>
 
   <div>
-    <h3>This authentication is new to Omniauth pure</h3>
-
     <p class="box shadow">
       Provider: <%= @authhash[:provider] %><br />
       ID: <%= @authhash[:uid] %><br />
       Name: <%= @authhash[:name] %><br />
       Email: <%= @authhash[:email] %> <br />
+      Location: <%= @authhash[:location] %> <br />
     </p>
 
     <%= form_tag :controller => "services", :action => "newaccount" do %>
       <%= submit_tag "Confirm and create new account" %> <%= submit_tag "Cancel" %>
     <% end %>
   </div>
+</section>
