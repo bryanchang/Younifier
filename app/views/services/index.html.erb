@@ -1,6 +1,11 @@
 <%= render 'services_list'%>
+<div class='box'>
+  <form action="/update_location" method="get" accept-charset="utf-8">
+    Location:<input type='text' id='input' name='location'>
+    <button id="button" type="submit">Update</button>
+  </form>
+</div>
 
-<a href="/update_location"><button>Update location</button></a>
 <hr>
 <% @services.each do |service| %>
     <div class="service_in_use box">

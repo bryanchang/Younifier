@@ -1,6 +1,6 @@
 class ServicesController < ApplicationController
-  before_filter :authenticate_user!, :except => [:create, :signin, :signup, :newaccount, :failure]
-  protect_from_forgery :except => :create
+  before_filter :authenticate_user!, :except => [:create, :signup, :newaccount, :failure, :update_location]
+  protect_from_forgery :except => [:create]
 
   # GET all authentication services assigned to the current user
   def index
@@ -59,6 +59,9 @@ class ServicesController < ApplicationController
     end
     redirect_to root_url
   end
+
+
+
 
   # callback: success
   # This handles signing in and adding an authentication service to existing accounts itself
@@ -147,23 +150,34 @@ class ServicesController < ApplicationController
         end
       else
         flash[:error] =  'Error while authenticating via ' + service_route + '/' + @authhash[:provider].capitalize + '. The service returned invalid data for the user id.'
-        redirect_to signin_path
+        #redirect_to signin_path
       end
     else
       flash[:error] = 'Error while authenticating via ' + service_route.capitalize + '. The service did not return valid data.'
-      redirect_to signin_path
+      #redirect_to signin_path
     end
   end
-
+##
   # callback: failure
   def failure
     flash[:error] = 'There was an error at the remote authentication service. You have not been signed in.'
     redirect_to root_url
   end
 
-  def update_location # input=('SF, baby')
-    Twitter.update_profile(:location => 'SF, baby')
-    # flash[:notice] = 'Your location has been successfully updated on ' + @authhash[:provider].capitalize + '.'
+  def update_location
+
+    location = params[:location]
+    Twitter.update_profile(:location => location)
+    flash[:notice] = 'Your location has been successfully updated.'
+    github = Octokit::Client.new(:login =>'bryanchang', :password => ENV['GITHUB_PW'] )
+    github.update_user(:location => location)
+
+    u = User.find_by_id(session[:user_id]) if session[:user_id]
+    u.services.where(:provider=>"twitter").first.update_attribute(:ulocation, params[:location])
+    u.services.where(:provider=>"github").first.update_attribute(:ulocation, params[:location])
+    u.save
+
     redirect_to services_path
   end
+
 end

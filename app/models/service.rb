@@ -3,6 +3,11 @@ class Service < ActiveRecord::Base
 
   belongs_to :user
 
+  # def update_location(service, location)
+  # self.where(:provider=> service).first.ulocation = location
+  # end
+
+
   # def update_location # location
   #   Twitter.update_profile(:location => 'SF, baby')
   #   redirect_to services_path
