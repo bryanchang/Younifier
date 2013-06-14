@@ -11,6 +11,8 @@ gem 'omniauth-google-apps'
 
 gem 'koala'
 gem 'twitter'
+gem 'linkedin'
+gem 'github-api'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
