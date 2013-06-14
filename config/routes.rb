@@ -6,6 +6,8 @@ Younifier::Application.routes.draw do
   get '/auth/:service/callback' => 'services#create'
   get '/auth/failure' => 'services#failure'
   get '/auth/:service/callback?oauth_problem=user_refused' => 'services#failure'
+  get '/update_location' => 'services#update_location'
+
   resources :services, :only => [:index, :create, :destroy] do
     collection do
       get 'signin'

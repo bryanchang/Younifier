@@ -7,8 +7,4 @@ class User < ActiveRecord::Base
   # self.services.where(:provider=> service).first.ulocation = location
   # self.save
   # end
-
-
-
-
 end
