@@ -1,26 +1,79 @@
-<%= render 'services_list'%>
-<div class='box'>
-  <form action="/update_location" method="get" accept-charset="utf-8">
-    Location:<input type='text' id='input' name='location'>
-    <button id="button" type="submit">Update</button>
-  </form>
+<div class='row'>
+  <h1 id='title'>Younifier</h1>
+  <ul data-orbit>
+    <li>
+      <%= image_tag("img-1.jpg", :size => '750x350', :alt => "Lonely World") %>
+      <div class="orbit-caption">We live in the disconnected world ironically due to the digitiazation</div>
+    </li>
+    <li>
+      <%= image_tag("img-2.jpg", :size => '750x350', :alt => "Lonely World") %>
+      <div class="orbit-caption">Constantly moving along without seeking one's true own identity</div>
+    </li>
+    <li>
+      <%= image_tag("img-3.jpg", :size => '750x350', :alt => "Lonely World") %>
+      <div class="orbit-caption">Don't get bombarded with the overflowing social networks</div>
+    </li>
+    <li>
+      <%= image_tag("img-4.jpg", :size => '750x350', :alt => "Lonely World") %>
+      <div class="orbit-caption">Unify your digital identity with Younifier</div>
+    </li>
+  </ul>
 </div>
 
-<hr>
+
+<div class='row'>
 <% @services.each do |service| %>
-    <div class="service_in_use box">
-      <div class="service_userdata">
-        <%= service.provider.capitalize if service.provider != '' %><br />
-        <%= service.uname if service.uname != '' %><br />
-        <%= service.uemail if service.uemail != '' %><br />
-        <%= service.ulocation if service.ulocation != '' %><br />
-        <%= service.oauth_token if service.oauth_token != '' %><br />
-        <%= service.oauth_secret if service.oauth_secret != '' %><br />
-        <% if session[:service_id] == service.id %>
-          <span>Signed in</span>
-        <% else %>
-          <%= link_to "Remove this service", service, :confirm => 'Are you sure you want to remove this authentication?', :method => :delete, :class => "remove" %>
-        <% end %>
-      </div>
+    <div class="large-6 columns">
+      <img src="http://placehold.it/400x300&text=[img]" />
+      <h3><%= service.provider.capitalize if service.provider != '' %></h4>
+      <%= service.uemail if service.uemail != '' %><br />
+      <h4><%= service.ulocation if service.ulocation != '' %></h4><br />
+      <% if session[:service_id] == service.id %>
+        <span class='small'>Signed in</span>
+      <% else %>
+        <%= link_to "Remove this service", service, :confirm => 'Are you sure you want to remove this authentication?', :method => :delete, :class => "remove" %>
+      <% end %>
     </div>
 <% end %>
+</div>
+
+<div class="row">
+    <div class="submit">
+      <form action="/update_location" method="get" accept-charset="utf-8" id="update">
+        Location:<input type='text' id='input' name='location'>
+        <button id="button" type="submit">Update</button>
+      </form>
+    </div>
+</div>
+
+<footer class="row">
+  <div class="large-12 columns">
+    <hr />
+    <div class="row">
+      <div class="large-6 columns">
+        <p><a href="http://about.me/bryanchang">&copy; Bryan Chang 2013</a> </p>
+      </div>
+      <div class="large-6 columns">
+        <ul class="inline-list right">
+          <li><a href="http://witter.com/bryankchang">@bryankchang</a></li>
+          <li><a href="https://github.com/bryanchang/younifier">Github</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!--
+<script>
+  document.write('<script src=js/vendor/' +
+  ('__proto__' in {} ? 'zepto' : 'jquery') +
+  '.js><\/script>')
+</script>
+
+ -->
+<!-- <script src="assets/javascripts/foundation.min.js"></script> -->
+<script>
+  $(document).ready(function(){
+    $(document).foundation();
+  });
+</script>

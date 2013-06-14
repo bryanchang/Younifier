@@ -2,9 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-body { font-size: 12px; line-height: 1.5em; font-family: Helvetica, Arial, sans-serif; background-color: #ffffff; color: #999}
+body { font-size: 12px; line-height: 1.5em; font-family: 'Lato', Helvetica, Arial, sans-serif; background-color: #ffffff; color: #999; font-weight: 100;}
 
-h1 { font-size: 18px; margin-bottom: 40px; }
+h1 { font-size: 18px; margin-bottom: 40px; font-weight: 100;}
 h2 { font-size: 16px; margin-bottom: 30px; }
 h3 { font-size: 14px; margin-bottom: 20px; }
 h4, h5, h6 { font-size: 14px; margin-bottom: 10px; }
@@ -17,15 +17,33 @@ a { color: #74809a; text-decoration: none !important;}
 a:visited { color: #74809a; }
 a:hover { color: #c81419; }
 
-.box { background-color: #f6f6f6; border: 1px solid #111; padding: 20px; width: 33%}
-
-.shadow {
+.box { background-color: #f6f6f6;
+  padding: 20px;
+  margin: 10px;
   -moz-box-shadow:    3px 3px 5px 6px #ccc;
   -webkit-box-shadow: 3px 3px 5px 6px #ccc;
   box-shadow:         3px 3px 5px 6px #ccc;
 }
 
+.submit{
+  margin: 5px auto;
+  width: 480px;
+}
+#update{
+  padding: 20px;
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow:         3px 3px 5px 6px #ccc;
+}
+
+
 #flash { margin-bottom: 60px; }
 .flash { padding: 5px; background-color: #dddddd; }
 .error { color: #ffffff; background-color: #c81419; }
 .notice { background-color: #ffff00; }
+
+.small { font-size: 5px;}
+
+.small-box { }
+
+#title{ font-size: 55px; font-weight: 100; text-align: center; line-height: 3em;}
